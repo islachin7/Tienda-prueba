@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class SubCategoria extends Model
 {
     use HasFactory;
-    protected $table = 'subcategoria';
+    protected $table = 'subCategoria';
     public $timestamps = false;
 
     public function scopeById($query, $id)
     {
         return is_array($id) 
-            ? $query->whereIn('subcategoria.id_subCategoria', $id)
-            : $query->where('subcategoria.id_subCategoria', $id); 
+            ? $query->whereIn('subCategoria.id_subCategoria', $id)
+            : $query->where('subCategoria.id_subCategoria', $id); 
     }
 
 

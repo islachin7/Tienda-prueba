@@ -1,2 +1,0 @@
-# Tienda-prueba
-Prueba Inicial

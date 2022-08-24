@@ -184,13 +184,13 @@ text-transform: lowercase;
                                                 <option value="3">3</option>
                                             </select>
                                         </div>
-                                        <div class="col-3 col-md-3 col-lg-3 mt-3">
-                                            <label for="cantidad">Precio U.</label>
+                                        <div class="col-4 col-md-4 col-lg-4 mt-3">
+                                            <label for="cantidad">Precio Uni.</label>
                                             <input type="text" readonly="" id="precio_producto" class="form-control" value="S/. {{ number_format($producto->precio, 2) }}">
                                         </div>
 
-                                        <div class="col-6 col-md-6 col-lg-6 mt-3 text-center">
-                                            <label for="cantidad">Sub Total:</label>
+                                        <div class="col-5 col-md-5 col-lg-5 mt-3 text-center">
+                                            <label for="cantidad">Costo :</label>
                                             <h3>S/. <span class="subto"></span></h3>
                                         </div>
                                         <div class="col-12 col-md-12 col-lg-12 mt-3">
@@ -198,7 +198,7 @@ text-transform: lowercase;
                                         </div>
                                         <div class="col-7 col-md-7 col-lg-7 mt-3">
                                             <select class="form-control p-0" id="id_metodo_pago" name="id_metodo_pago">
-                                                 <option value="">Método pago:</option>
+                                                 <option value="">Pago con :</option>
                                                 @forelse ($metodos_pago as $metodo)
                                                     <option value="{{ $metodo->id_maestro_detalle }}">{{ $metodo->valor }}</option>
                                                 @empty
@@ -220,17 +220,17 @@ text-transform: lowercase;
                      <div class="col-12 col-sm-12 col-lg-3 col-lg-3">
                         <div class="main-block">
                           <div class="filter-title" style="border: none !important">
-                            <h5 class="pb-0 mb-0">Detalle</h5>
+                            <h5 class="pb-0 mb-0">CUENTA :</h5>
                           </div>
                           <table class="table table-borderless mb-0">
                             <tbody>
                               <tr class="border-top border-theme">
-                                <td class="pb-0"><h6 class="mb-0">Delivery</h6></td>
-                                <td class="float-right pb-0">S/. 3.00</td>
+                                <td class="pb-0"><h6 class="mb-0">Costo</h6></td>
+                                <td class="float-right pb-0">S/. <span class="subto"></span></td>
                               </tr>
                               <tr class="border-top border-theme">
-                                <td class="pb-0"><h6 class="mb-0">Sub Total</h6></td>
-                                <td class="float-right pb-0">S/. <span class="subto"></span></td>
+                                <td class="pb-0"><h6 class="mb-0">Delivery</h6></td>
+                                <td class="float-right pb-0">S/. 3.00</td>
                               </tr>
                               <tr class="border-top border-theme">
                                 <td class="pb-0"><h5 class="mb-0">Total</h5></td>

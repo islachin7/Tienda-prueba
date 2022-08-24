@@ -72,8 +72,8 @@ CREATE TABLE users (
   name varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   email varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   apellido_paterno varchar(200) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  documento int(11) DEFAULT NULL,
-  celular int(11) DEFAULT NULL,
+  documento bigint(12) DEFAULT NULL,
+  celular bigint(15) DEFAULT NULL,
   direccion text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   urbanizacion varchar(80),
   password varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -298,7 +298,7 @@ ALTER TABLE orden_feedback
   ADD CONSTRAINT FK_orden_feedback_orden FOREIGN KEY (id_orden) REFERENCES orden (id_orden);
 
 ALTER TABLE producto
-  ADD CONSTRAINT fk_producto_subcategoria FOREIGN KEY (id_subCategoria) REFERENCES subCategoria (id_subCategoria),
+  ADD CONSTRAINT fk_producto_subcategoria FOREIGN KEY (id_subCategoria) REFERENCES subCategoria(id_subCategoria),
   ADD CONSTRAINT fk_producto_proveedor FOREIGN KEY (id_proveedor) REFERENCES `users` (id);
 
 ALTER TABLE producto_detalle
@@ -311,7 +311,7 @@ ALTER TABLE role_has_permissions
 
 -- ---------------------------------------
 
-INSERT INTO categoria(id_categoria, nombre_categoria, fecha_creacion, estado) VALUES
+INSERT INTO categoria (id_categoria, nombre_categoria, fecha_creacion, estado) VALUES
 (1, 'CATEGORIA 1', '2022-08-13', 1),
 (2, 'CATEGORIA 2', '2022-08-13', 1),
 (3, 'CATEGORIA 3', '2022-08-13', 1),
@@ -321,7 +321,7 @@ INSERT INTO categoria(id_categoria, nombre_categoria, fecha_creacion, estado) VA
 (7, 'CATEGORIA 4', '2022-08-13', 1),
 (8, 'CATEGORIA 4', '2022-08-13', 1);
 
-INSERT INTO subCategoria(id_subCategoria, nombre_subCategoria,id_categoria) VALUES
+INSERT INTO subCategoria (id_subCategoria, nombre_subCategoria,id_categoria) VALUES
 (1, 'POLOS', 1),
 (2, 'CAMISA', 2);
 

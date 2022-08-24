@@ -26,6 +26,7 @@
  
 
 
+
 <nav class="navbar navbar-expand-lg navbar-light bg-warning justify-content-center">
   <a class="navbar-brand" href="{{ route('index') }}">
   <img class="img-fluid" style="width:220px;" src="{{ url('/images/nuevologo.png') }}" alt="logo">
@@ -36,27 +37,63 @@
 
   <div class="collapse navbar-collapse justify-content-center text-center" id="nosdsd">
   <ul class="navbar-nav mr-auto"></ul>
- 
+
+  @if(isset(Auth::user()->role_id))
+  @if( Auth::user()->role_id == 3 || Auth::user()->role_id == 2)
   <div class="dropdown justify-content-center text-center">
-    @guest
-        <a href="#" class="btn btn-info ml-2" data-toggle="modal" data-target="#registro" data-hover="Registrarme">Registrarme</a>
-        <a href="#" class="btn btn-info ml-2" data-toggle="modal" data-target="#login" data-hover="Entrar">Entrar</a>
-    @else
+        @guest
+            <a href="#" class="btn btn-info ml-2" data-toggle="modal" data-target="#registro" data-hover="Registrarme">Registrarme</a>
+            <a href="#" class="btn btn-info ml-2" data-toggle="modal" data-target="#login" data-hover="Entrar">Entrar</a>
+        @else
 
-    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Hola: {{ Auth::user()->name }} <i class="fa fa-user"></i>
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editar">Perfil</a>
-        <a class="dropdown-item" href="{{ route('mis_pedidos') }}" >Mis pedidos</a>
-        @can('dashboard')
-        <a class="dropdown-item" href="{{ route('dashboard') }}">Dash</a> 
-        @endcan
-        <a class="dropdown-item" href="{{ route('logout') }}">Salir</a>
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Hola: {{ Auth::user()->name }} <i class="fa fa-user"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editar">Perfil</a>
+            @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 2)
+            <a class="dropdown-item" href="{{ route('mis_pedidos') }}" >Mis pedidos</a>
+            @endif
+
+            @can('dashboard')
+            <a class="dropdown-item" href="{{ route('dashboard') }}">Panel</a> 
+            @endcan
+            <a class="dropdown-item" href="{{ route('logout') }}">Salir</a>
+        </div>
+        @endguest
+
     </div>
-    @endguest
+    @endif
 
-</div>
+ @else
+
+ <div class="dropdown justify-content-center text-center">
+        @guest
+            <a href="#" class="btn btn-info ml-2" data-toggle="modal" data-target="#registro" data-hover="Registrarme">Registrarme</a>
+            <a href="#" class="btn btn-info ml-2" data-toggle="modal" data-target="#login" data-hover="Entrar">Entrar</a>
+        @else
+
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Hola: {{ Auth::user()->name }} <i class="fa fa-user"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editar">Perfil</a>
+            @if(isset(Auth::user()->role_id))
+                @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 2)
+                <a class="dropdown-item" href="{{ route('mis_pedidos') }}" >Mis pedidos</a>
+                @endif
+            @endif
+
+            @can('dashboard')
+            <a class="dropdown-item" href="{{ route('dashboard') }}">Panel</a> 
+            @endcan
+            <a class="dropdown-item" href="{{ route('logout') }}">Salir</a>
+        </div>
+        @endguest
+
+    </div>
+
+ @endif
   
   </div>
 

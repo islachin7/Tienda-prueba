@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use App\Models\OrdenFeedback;
 use Illuminate\Http\Request;
 use Session;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,13 @@ class AuthController extends Controller
 
         Auth::login($usuario);
 
-        return redirect('/')->with('message', 'Logeo exitoso');
+        if($usuario->role_id == 1){
+            return redirect('/dashboard')->with('message', 'Logeo exitoso');
+        }else{
+            return redirect('/')->with('message', 'Logeo exitoso');
+        }
+
+        
 
     }
 
@@ -82,7 +89,16 @@ class AuthController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $feedbacks = OrdenFeedback::query()->with('orden', 'tipo_feedback');
+        $feedbacks = Auth::user()->hasRole('admin') 
+            ? $feedbacks 
+            : $feedbacks->whereHas('orden.detalle.producto',function($query) {
+                $query->where('producto.id_proveedor', Auth::user()->id);
+            });
+
+        $feedbacks = $feedbacks->orderBy('orden_feedback.id_orden_feedback')->paginate(20);
+        
+        return view('feedback.index', compact('feedbacks'));
     }
 
 }

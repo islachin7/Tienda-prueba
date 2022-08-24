@@ -129,15 +129,15 @@
                                  
 								<div class="product-title" style="height:50px"><a href="#">{{ $producto['nombre'] }}</a></div>
                                 <hr>
-								<div class="row justify-content-center" style="display: flex; align-items: center;">
-                                        <div class="col-sm-6">
-                                         <span>S/.{{ number_format($producto->precio, 2) }}</span>
+								<div class="row" style="display: flex; align-items: center;">
+                                        <div class="col-lg-6">
+                                         <h6>S/. {{ number_format($producto->precio, 2) }}</h6>
                                         </div>
-                                        <div class="col-xs-6">
+                                        <div class="col-lg-6">
                                         @guest
-                                        <a role="button" class="btn btn-success mt-2 mb-2" href="#" data-toggle="modal" data-target="#login">Comprar</a>
+                                        <a class="btn btn-success btn-sm mb-2" href="#" data-toggle="modal" data-target="#login" >Comprar</a>
                                         @else
-                                        <a class="btn btn-lg btn-success mb-2" href="{{ route('producto.show', $producto['nombre']) }}">Comprar</a>
+                                        <a class="btn btn-success btn-sm mb-2" href="{{ route('producto.show', $producto['nombre']) }}">Comprar</a>
                                         @endguest
                                         </div>
                                 </div>

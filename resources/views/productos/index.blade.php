@@ -4,25 +4,25 @@
 
 @section('content')
     @include('partials.navbar-dashboard')
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
+
     <section class="page-section-ptb">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 p-0">
-                    <h1>Listado productos</h1>
-                    <button class="btn btn-primary my-4" type="button" onclick="modal_producto()">Nuevo producto</button>
+                    <h1>Productos :</h1>
                     <x-alerta />
-                </div>
-                <hr>
-                <table class="table table-striped table-bordered table-sm" id="tabla-productos">
+                    <table class="table table-striped table-bordered table-sm" id="tabla-productos">
                     <thead>
                         <tr>
-                            <th scope="col" class="text-dark">#</th>
-                            <th scope="col" class="text-dark">Nombre</th>
-                            <th scope="col" class="text-dark">Precio</th>
-                            <th scope="col" class="text-dark">Descripcion</th>
-                            <th scope="col" class="text-dark">Imagen</th>
-                            <th scope="col" class="text-dark">Editar</th>
-                            <th scope="col" class="text-dark">Eliminar</th>
+                            <th scope="col" class="text-dark text-center">#</th>
+                            <th scope="col" class="text-dark text-center">Nombre</th>
+                            <th scope="col" class="text-dark text-center">Precio</th>
+                            <th scope="col" class="text-dark text-center">Descripcion</th>
+                            <th scope="col" class="text-dark text-center">Imagen</th>
+                            <th scope="col" class="text-dark text-center">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,14 +37,13 @@
                                         style="width:100px; height: 100px;" class="img-fluid" alt="img-producto"
                                         srcset="">
                                 </td>
+                                <!--
                                 <td class="text-dark align-middle text-center">
-
                                     <button class="btn btn-lg btn-outline-warning" onclick="modal_producto({{ $producto->id_producto }})">
                                     <i style="font-size:large;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     </button>
-
-                                    
                                 </td>
+                                -->
                                 <td class="text-dark align-middle text-center">
                                     <form action="{{ route('producto.destroy', $producto->id_producto) }}" method="post">
                                         <input type="hidden" name="_method" value="delete">
@@ -60,6 +59,8 @@
                                 <th colspan="6">Aun no existe ni un producto</th>
                             </tr>
                         @endforelse
+
+                        <!--
                         <div class="row" style="width: 100% !important;">
                             <div class="col-md-8">
                                 {{ $productos->links() }}
@@ -77,10 +78,11 @@
                                 </form>
                             </div>
                         </div>
+                        -->
                     </tbody>
                 </table>
+                </div>
             </div>
-        </div>
         </div>
     </section>
 
@@ -110,6 +112,32 @@
                 },
             });
         }
+    </script>
+
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tabla-productos').DataTable({
+                //para cambiar el lenguaje a español
+                    "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sSearch": "Buscar:",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast":"Último",
+                        "sNext":">>",
+                        "sPrevious": "<<"
+                    },
+                    "sProcessing":"Procesando...",
+                    }
+            });
+        });
     </script>
 
 @endsection
