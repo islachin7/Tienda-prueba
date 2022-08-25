@@ -32,18 +32,21 @@ Route::get('/politicas', function(){
     ]); 
 })->name('politicas');
 
-Route::resource('producto', ProductoController::class);
+
 
 Route::group(['middleware' => ['auth']], function() {
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+    Route::get('/proveedor', [OrdenController::class, 'pedidos_proveedor'])->name('proveedor');
+    Route::get('/productosProveedor', [ProductoController::class, 'productos_proveedor'])->name('productosProveedor');
     Route::get('/mis/pedidos', [OrdenController::class, 'mis_pedidos'])->name('mis_pedidos');
 
     Route::resource('categoria', CategoriaController::class)->except(['edit']);;
     Route::resource('orden', OrdenController::class);
     Route::resource('auth', AuthController::class);
     Route::resource('feedback', FeedBackController::class);
+    Route::resource('producto', ProductoController::class);
 
 });

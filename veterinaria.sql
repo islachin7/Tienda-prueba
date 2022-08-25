@@ -139,6 +139,7 @@ CREATE TABLE producto_detalle (
 CREATE TABLE orden (
   id_orden bigint(20) UNSIGNED NOT NULL,
   id_cliente bigint(20) UNSIGNED NOT NULL,
+  id_proveedor bigint(20) UNSIGNED NOT NULL,
   hora_entrega time NOT NULL,
   mensaje text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   mensaje_proveedor varchar(80) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -196,7 +197,8 @@ ALTER TABLE model_has_roles
 
 ALTER TABLE orden
   ADD PRIMARY KEY (id_orden),
-  ADD KEY id_cliente (id_cliente);
+  ADD KEY id_cliente (id_cliente),
+  ADD KEY id_proveedor (id_proveedor);
 
 ALTER TABLE orden_detalle
   ADD PRIMARY KEY (id_orden_detalle),
@@ -288,7 +290,8 @@ ALTER TABLE model_has_roles
   ADD CONSTRAINT model_has_roles_role_id_foreign FOREIGN KEY (role_id) REFERENCES `roles` (id) ON DELETE CASCADE;
 
 ALTER TABLE orden
-  ADD CONSTRAINT FK_orden_cliente FOREIGN KEY (id_cliente) REFERENCES `users` (id);
+  ADD CONSTRAINT FK_orden_cliente FOREIGN KEY (id_cliente) REFERENCES `users` (id),
+  ADD CONSTRAINT Fk_orden_proveedor FOREIGN KEY (id_proveedor) REFERENCES `users` (id);
 
 ALTER TABLE orden_detalle
   ADD CONSTRAINT FK_orden_detalle_orden FOREIGN KEY (id_orden) REFERENCES orden (id_orden),
@@ -2497,18 +2500,6 @@ INSERT INTO producto_detalle (id_producto_detalle, id_producto, imagen) VALUES
 (5, 5, 'produ2.png'),
 (9, 7, 'produ2.png'),
 (10, 7, 'produ3.png');
-
-
-INSERT INTO orden (id_orden, id_cliente, hora_entrega, mensaje, mensaje_proveedor, fecha_entrega, fecha_compra, estado) VALUES
-(1, 11, '10:15:00', 'DESEO ESTE POLO', 'NO SE PREOCUPE LE ENVIAREMOS', '2022-08-16', '2022-08-14 02:11:23', 0),
-(2, 11, '08:30:00', 'Deseo lo mas rapido posible', NULL, '2022-08-14', '2022-08-14 15:15:32', 1);
-
-INSERT INTO orden_detalle (id_orden_detalle, id_orden, id_producto, cantidad, comision, id_metodo_pago) VALUES
-(1, 1, 1, 1, 0, 1),
-(2, 2, 2, 1, 1, 1);
-
-INSERT INTO orden_feedback (id_orden_feedback, id_orden, comentario, id_tipo_feedback, fecha_creacion) VALUES
-(1, 1, 'NO ME DIERON A TIEMPO, PORFA MEJOREN ESO', 4, '2022-08-14 02:15:07');
 
 
 INSERT INTO model_has_roles (role_id, model_type, model_id) VALUES

@@ -3,7 +3,7 @@
 @section('title', 'Producto')
 
 @section('content')
-    @include('partials.navbar-dashboard')
+    @include('partials.navbar-proveedor')
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" crossorigin="anonymous">
@@ -111,6 +111,7 @@ a, .btn {
             <div class="row">
                 <div class="col-md-12">
                     <h1>Productos :</h1>
+                    <button class="btn btn-primary my-4" type="button" onclick="modal_producto()">Nuevo producto</button>
                     <x-alerta />
                     <table class="table table-responsive table-bordered" style="border-radius:20px;" id="tabla-productos">
                     <thead class="bg-dark">
@@ -119,8 +120,9 @@ a, .btn {
                             <th scope="col" class="text-light text-center" width="200">Nombre</th>
                             <th scope="col" class="text-light text-center" width="200">Precio</th>
                             <th scope="col" class="text-light text-center" width="200">Descripcion</th>
-                            <th scope="col" class="text-light text-center" width="400">Imagen</th>
-                            <th scope="col" class="text-light text-center" width="200">Eliminar</th>
+                            <th scope="col" class="text-light text-center" width="500">Imagen</th>
+                            <th scope="col" class="text-light text-center" width="100">Editar</th>
+                            <th scope="col" class="text-light text-center" width="100">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -135,13 +137,11 @@ a, .btn {
                                         style="width:100px; height: 100px;" class="img-fluid" alt="img-producto"
                                         srcset="">
                                 </td>
-                                <!--
                                 <td class="text-dark align-middle text-center">
-                                    <button class="btn btn-lg btn-outline-warning" onclick="modal_producto({{ $producto->id_producto }})">
+                                    <button class="btn btn-lg btn-warning" onclick="modal_producto({{ $producto->id_producto }})">
                                     <i style="font-size:large;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     </button>
                                 </td>
-                                -->
                                 <td class="text-dark align-middle text-center">
                                     <form action="{{ route('producto.destroy', $producto->id_producto) }}" method="post">
                                         <input type="hidden" name="_method" value="delete">
@@ -153,9 +153,6 @@ a, .btn {
                                 </td>
                             </tr>
                         @empty
-                            <tr>
-                                <th colspan="6">Aun no existe ni un producto</th>
-                            </tr>
                         @endforelse
 
                         <!--

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductoRequest;
 use App\Models\Categoria;
+use App\Models\SubCategoria;
 use App\Models\Producto;
 use App\Models\ProductoDetalle;
 use App\Models\TablaMaestroDetalle;
@@ -46,7 +47,8 @@ class ProductoController extends Controller
     public function create()
     {
         $categorias = Categoria::all();
-        return view('productos.form', compact('categorias'));
+        $subcategorias = SubCategoria::all();
+        return view('productos.form', compact('categorias','subcategorias' ));
     }
 
     /**
@@ -113,8 +115,10 @@ class ProductoController extends Controller
     public function edit($id)
     {
         $categorias = Categoria::all();
+        $subcategorias = SubCategoria::all();
         $producto = Producto::ById($id)->first();
-        return view('productos.form', compact('producto', 'categorias'));
+        return view('productos.form', compact('producto','categorias','subcategorias' ));
+        
     }
 
     /**
@@ -141,4 +145,13 @@ class ProductoController extends Controller
         Producto::ById($id)->delete();
         return redirect()->back()->with('message', 'Producto eliminada exitosamente');
     }
+
+    public function productos_proveedor()
+    {
+        $productos = Producto::ByProveedor(Auth::user()->id);
+
+        $productos = $productos->orderBy('producto.id_producto')->paginate(20);
+        return view('productos.vistaProveedor', compact("productos"));
+    }
+
 }

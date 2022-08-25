@@ -26,6 +26,16 @@ class Orden extends Model
         return $this->hasOne(User::class, 'id', 'id_cliente');
     }
 
+    public function scopeByIdProveedor($query, $id)
+    {
+        return $query->where('orden.id_proveedor', $id);
+    }
+
+    public function Proveedor()
+    {
+        return $this->hasOne(User::class, 'id', 'id_proveedor');
+    }
+
     public function detalle()
     {
         return $this->belongsTo(OrdenDetalle::class, 'id_orden', 'id_orden_detalle');

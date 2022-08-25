@@ -34,6 +34,8 @@ class AuthController extends Controller
 
         if($usuario->role_id == 1){
             return redirect('/dashboard')->with('message', 'Logeo exitoso');
+        }elseif($usuario->role_id == 2){
+            return redirect('/proveedor')->with('message', 'Logeo exitoso');
         }else{
             return redirect('/')->with('message', 'Logeo exitoso');
         }
@@ -44,12 +46,22 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $usuario = User::create($request->only(
-            [
-                'name', 'email', 'password', 
-                'apellido_paterno', 'documento', 'celular', 'direccion'
-            ]
-        ))->assignRole('cliente');
+        if($request->role_id == 3){
+            $usuario = User::create($request->only(
+                [
+                    'name', 'email', 'password', 
+                    'apellido_paterno', 'role_id'
+                ]
+            ))->assignRole('cliente');
+        }elseif($request->role_id == 2){
+            $usuario = User::create($request->only(
+                [
+                    'name', 'email', 'password','documento', 'role_id'
+                ]
+            ))->assignRole('proveedor');
+        }
+
+        
 
         auth()->login($usuario);
         return redirect("/")->with('message', 'Registrado exitosamente');

@@ -41,17 +41,17 @@
         </div>
         <div class="form-group">
             <label for="exampleFormControlSelect2">Categoria</label>
-            <select class="form-control" id="categoria" name="id_categoria">
-                <option value="">Seleccionar categoria</option>
-                @forelse ($categorias as $categoria)
-                    <option value="{{ $categoria->id_categoria }}"  {{ isset($producto->id_categoria) && $categoria->id_categoria == $producto->id_categoria ? 'selected' : ''  }}>
-                        {{ $categoria->nombre_categoria }}
+            <select class="form-control" id="categoria" name="id_subCategoria">
+                <option value="">Categorias</option>
+                @forelse ($subcategorias as $subcategoria)
+                    <option value="{{ $subcategoria->id_subCategoria }}"  {{ isset($producto->id_subCategoria) && $subcategoria->id_subCategoria == $producto->id_subCategoria ? 'selected' : ''  }}>
+                        {{ $subcategoria->nombre_subCategoria }}
                     </option>                
                 @empty
                 @endforelse
             </select>
         </div>
-        @if (!isset($producto->id_categoria))
+        @if (!isset($producto->id_subCategoria))
             <div class="custom-file mt-2">
                 <input type="file" class="custom-file-input" id="image" name="image" required>
                 <label class="custom-file-label" for="image" accept=".jpeg, .png, .jpg">Elejir imagen</label>

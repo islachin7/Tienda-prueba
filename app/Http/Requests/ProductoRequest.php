@@ -47,7 +47,7 @@ class ProductoRequest extends FormRequest
             'precio' => 'required',
             'stock' => 'required',
             'descripcion' => 'required|max:200',
-            'id_categoria' => 'required',
+            'id_subCategoria' => 'required',
             'image' => $edit ? '' : 'required|image|mimes:jpeg,png,jpg',
             'image-detalle.*' => $edit ? '' : 'required|image|mimes:jpeg,png,jpg',
             // |dimensions:max_width=480,max_height=480

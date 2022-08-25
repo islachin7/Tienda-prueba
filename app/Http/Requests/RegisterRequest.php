@@ -43,7 +43,6 @@ class RegisterRequest extends FormRequest
         return [
             'name' => 'required|max:80',
             'email' => 'required|unique:users',
-            'apellido_paterno' => 'required',
             'password' => 'required|max:8'
         ];
     }

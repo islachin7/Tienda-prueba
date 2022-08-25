@@ -23,20 +23,21 @@
 }
 
 </style>
- 
-
-
 
 <nav class="navbar navbar-expand-lg navbar-light bg-warning justify-content-center">
-  <a class="navbar-brand" href="{{ route('index') }}">
-  <img class="img-fluid" style="width:220px;" src="{{ url('/images/nuevologo.png') }}" alt="logo">
-  </a>
-  <button class="navbar-toggler" type="button" id="raton" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse justify-content-center text-center" id="nosdsd">
-  <ul class="navbar-nav mr-auto"></ul>
+
+<a class="navbar-brand" href="{{ route('index') }}">
+<img class="img-fluid" style="width:220px;" src="{{ url('/images/nuevologo.png') }}" alt="logo">
+</a>
+<button class="navbar-toggler" type="button" id="raton" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse justify-content-center text-center" id="nosdsd">
+<ul class="navbar-nav mr-auto"></ul>
+ 
+
 
   @if(isset(Auth::user()->role_id))
   @if( Auth::user()->role_id == 3 || Auth::user()->role_id == 2)
@@ -67,6 +68,10 @@
 
  @else
 
+
+<div class="collapse navbar-collapse justify-content-center text-center" id="nosdsd">
+<ul class="navbar-nav mr-auto"></ul>
+
  <div class="dropdown justify-content-center text-center">
         @guest
             <a href="#" class="btn btn-info ml-2" data-toggle="modal" data-target="#registro" data-hover="Registrarme">Registrarme</a>
@@ -96,8 +101,9 @@
  @endif
   
   </div>
-
 </nav>
+
+
 
 
 
@@ -116,7 +122,7 @@ $('#raton').on('click',function(){
 </script>
 
 
-<!-- Modal registro -->
+<!-- Modal registro Cliente-->
 <div class="modal fade" id="registro"  role="dialog" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog" role="document">  
     <div class="modal-content">
@@ -138,6 +144,8 @@ $('#raton').on('click',function(){
                         <div class="login-form">
                             <form method="post" class="text-center" action="{{ route('post-register') }}" autocomplete="off">
                                 @csrf
+
+                                <input type="hidden" name="role_id" value="3">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -147,6 +155,69 @@ $('#raton').on('click',function(){
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="apellido_paterno" placeholder="Apellido Paterno">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" name="email" maxlength="30" placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" name="password" minlength="4" maxlength="8" placeholder="Contraseña">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn theme-button  animated slideInRight">Registrarme</button>
+                            </form>
+                            <div class="row">
+                                <div class="col text-center">
+                                    <a href="#" id="ingreso-bon" data-toggle="modal" data-target="#login" class="float-right">Ingresar</a>
+                                    <a href="#" id="ingreso-tie" data-toggle="modal" data-target="#registrotienda" class="float-left">Registrar como tienda</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+      </div>
+    </div>
+  </div> 
+</div>
+
+<!-- Modal registro proveedor-->
+<div class="modal fade" id="registrotienda"  role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog" role="document">  
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" id="registro-cerrar" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <section class="page-section-ptb">
+        <div class="container">
+            <div class="row">
+                        <div class="col-lg-12 text-center title-line mb-50">
+                            <h2 class="slick-title">Registrar Tienda</h2>
+                            <p>Completa tus datos para poder registrarte.</p>
+                        </div>
+
+                        <div class="login-form">
+                            <form method="post" class="text-center" action="{{ route('post-register') }}" autocomplete="off">
+                                @csrf
+
+                                <input type="hidden" name="role_id" value="2">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="name" placeholder="Tienda">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="documento" placeholder="Documento">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -378,13 +449,20 @@ $(document).ready(function(e) {
     $(".modal-backdrop").remove();
     
  });
-
+ 
 
  $("#ingreso-bon").click(function(){
 
     $("#registro-cerrar").click();
     $(".modal-backdrop").remove();
     
+});
+
+$("#ingreso-tie").click(function(){
+
+$("#registro-cerrar").click();
+$(".modal-backdrop").remove();
+
 });
 
 

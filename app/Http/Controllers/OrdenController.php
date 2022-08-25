@@ -141,4 +141,15 @@ class OrdenController extends Controller
         return view('ordenes.mis_pedidos', compact('pedidos'));
     }
 
+    public function pedidos_proveedor()
+    {
+        $pedidos = Orden::query()
+            ->with('detalle')
+            ->ByIdProveedor(Auth::user()->id)
+            ->orderBy('orden.id_orden', 'desc')
+            ->paginate(20);
+        // dd($pedidos);
+        return view('ordenes.pedidos_prove', compact('pedidos'));
+    }
+
 }

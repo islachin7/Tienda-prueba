@@ -10,7 +10,6 @@
 <body style="background-color:#f5f5f5;">
 
     <div id="app" >
-
         <!--===== NavBar =====-->
         @include('partials.navbar')
         <!--=====End Footer =====-->
