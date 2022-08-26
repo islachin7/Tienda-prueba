@@ -6,6 +6,7 @@ use App\Models\Categoria;
 use App\Models\SubCategoria;
 use App\Models\Ciudad;
 use App\Models\Distrito;
+use App\Models\Departamento;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
@@ -16,11 +17,14 @@ class HomeController extends Controller
     {
         $categorias = Categoria::select('*')->get();
         $subcategorias = SubCategoria::select('*')->get();
+        $distritos = Distrito::select('*')->get();
+        $departamentos = Departamento::select('*')->get();
+        $ciudades = Ciudad::select('*')->get();
         $productos = Producto::select('*')->ByStock();
     
         $productos = $productos->paginate(8);
         $productos->appends($request->all());
-        return view('index', compact('productos', 'categorias','subcategorias'));
+        return view('index', compact('productos', 'categorias','subcategorias','distritos','departamentos','ciudades'));
     }
 
     public function contacto(Request $request)

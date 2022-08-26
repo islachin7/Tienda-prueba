@@ -13,6 +13,8 @@
         <!--===== NavBar =====-->
         @include('partials.navbar')
         <!--=====End Footer =====-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
         <main>
             @yield('content')
         </main>

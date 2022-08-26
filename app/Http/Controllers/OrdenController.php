@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Orden;
 use App\Models\OrdenDetalle;
 use App\Models\Producto;
+use App\Models\Ciudad;
+use App\Models\Distrito;
+use App\Models\Departamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -143,13 +146,18 @@ class OrdenController extends Controller
 
     public function pedidos_proveedor()
     {
+
+        $distritos = Distrito::select('*')->get();
+        $departamentos = Departamento::select('*')->get();
+        $ciudades = Ciudad::select('*')->get();
+
         $pedidos = Orden::query()
             ->with('detalle')
             ->ByIdProveedor(Auth::user()->id)
             ->orderBy('orden.id_orden', 'desc')
             ->paginate(20);
         // dd($pedidos);
-        return view('ordenes.pedidos_prove', compact('pedidos'));
+        return view('ordenes.pedidos_prove', compact('pedidos','distritos','departamentos','ciudades'));
     }
 
 }

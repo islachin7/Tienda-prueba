@@ -51,4 +51,9 @@ class User extends Authenticatable
         return $query->where('users.email', $id);
     }
 
+    public function distrito()
+    {
+        return $this->hasOne(Distrito::class, 'idDist', 'idDist');
+    }
+
 }

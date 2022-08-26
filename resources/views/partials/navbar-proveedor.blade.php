@@ -1,7 +1,8 @@
 <div class="container mt-2 mb-2 text-center">
-<a class="btn btn-sm btn-primary" href="{{ route('proveedor') }}">Pedidos</a>
-<a class="btn btn-sm btn-primary" href="{{ route('productosProveedor') }}">Productos</a>
-<button style="margin-left:1px !important;" class="btn btn-sm btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<a class="btn btn-sm btn-primary mt-1" href="{{ route('proveedor') }}">Pedidos</a>
+<a class="btn btn-sm btn-primary mt-1" href="{{ route('productosProveedor') }}">Productos</a>
+<a class="btn btn-sm btn-primary mt-1" href="{{ route('productosProveedor') }}">Reclamos</a>
+<button style="margin-left:1px !important;" class="btn btn-sm btn-info dropdown-toggle mt-1" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 Hola: {{ Auth::user()->name }} <i class="fa fa-user"></i>
 </button>
    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin-left:1px;">

@@ -96,7 +96,7 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        $producto = Producto::ByNombre($id)->ByStock()->with('categoria','subCategoria', 'proveedor')->first();
+        $producto = Producto::ById($id)->ByStock()->with('categoria','subCategoria','proveedor')->first();
             
         if(!$producto) abort(404);
         

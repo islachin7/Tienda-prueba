@@ -22,52 +22,23 @@
   display: block;
 }
 
+.opciss{
+text-transform: lowercase;
+
+}
+
 </style>
 
+
+<!-- NavBar Incio -->
+
 <nav class="navbar navbar-expand-lg navbar-light bg-warning justify-content-center">
-
-
 <a class="navbar-brand" href="{{ route('index') }}">
 <img class="img-fluid" style="width:220px;" src="{{ url('/images/nuevologo.png') }}" alt="logo">
 </a>
 <button class="navbar-toggler" type="button" id="raton" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
 </button>
-
-<div class="collapse navbar-collapse justify-content-center text-center" id="nosdsd">
-<ul class="navbar-nav mr-auto"></ul>
- 
-
-
-  @if(isset(Auth::user()->role_id))
-  @if( Auth::user()->role_id == 3 || Auth::user()->role_id == 2)
-  <div class="dropdown justify-content-center text-center">
-        @guest
-            <a href="#" class="btn btn-info ml-2" data-toggle="modal" data-target="#registro" data-hover="Registrarme">Registrarme</a>
-            <a href="#" class="btn btn-info ml-2" data-toggle="modal" data-target="#login" data-hover="Entrar">Entrar</a>
-        @else
-
-        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Hola: {{ Auth::user()->name }} <i class="fa fa-user"></i>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editar">Perfil</a>
-            @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 2)
-            <a class="dropdown-item" href="{{ route('mis_pedidos') }}" >Mis pedidos</a>
-            @endif
-
-            @can('dashboard')
-            <a class="dropdown-item" href="{{ route('dashboard') }}">Panel</a> 
-            @endcan
-            <a class="dropdown-item" href="{{ route('logout') }}">Salir</a>
-        </div>
-        @endguest
-
-    </div>
-    @endif
-
- @else
-
 
 <div class="collapse navbar-collapse justify-content-center text-center" id="nosdsd">
 <ul class="navbar-nav mr-auto"></ul>
@@ -83,12 +54,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editar">Perfil</a>
-            @if(isset(Auth::user()->role_id))
-                @if(Auth::user()->role_id == 3 || Auth::user()->role_id == 2)
-                <a class="dropdown-item" href="{{ route('mis_pedidos') }}" >Mis pedidos</a>
-                @endif
-            @endif
-
+            <a class="dropdown-item" href="{{ route('mis_pedidos') }}" >Pedidos</a>
             @can('dashboard')
             <a class="dropdown-item" href="{{ route('dashboard') }}">Panel</a> 
             @endcan
@@ -96,12 +62,11 @@
         </div>
         @endguest
 
-    </div>
-
- @endif
-  
+    </div> 
   </div>
 </nav>
+
+<!-- Fin de Navbar -->
 
 
 
@@ -253,7 +218,7 @@ $('#raton').on('click',function(){
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"></h5>
+        <h5 class="modal-title">Perfil</h5>
         <button type="button" id="registro-cerrar" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -261,9 +226,6 @@ $('#raton').on('click',function(){
       <div class="modal-body" id="datosEditar">
 
             <div class="row">
-                        <div class="col-lg-12 text-center title-line">
-                            <h2 class="slick-title">Perfil</h2>
-                        </div>
                         <div class="login-form">
                             <form method="post" action=" {{ route('post-update') }}" autocomplete="off" enctype="multipart/form-data">
                                 @csrf
@@ -273,7 +235,7 @@ $('#raton').on('click',function(){
                                   <div class="form-group">
                                   <img id="preview"  height="200" alt="" src="{{ isset(Auth::user()->foto) ? url('/images/usuarios/' . Auth::user()->foto) : '' }}" width="180">
                                   <span class="btn btn-primary btn-file mt-3">
-                                    Subir Imagen <input type="file" id="foto" value="{{ isset(Auth::user()->foto) ? Auth::user()->foto : '' }}" name="foto">
+                                    Subir Foto <input type="file" id="foto" value="{{ isset(Auth::user()->foto) ? Auth::user()->foto : '' }}" name="foto">
                                   </span>
                                   </div>
                                 </div>
@@ -290,12 +252,12 @@ $('#raton').on('click',function(){
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="documento" value="{{ isset(Auth::user()->documento) ? Auth::user()->documento : '' }}" placeholder="N. Documento">
+                                            <input type="number" class="form-control"  min="1" maxlength="12" size="4" name="documento" value="{{ isset(Auth::user()->documento) ? Auth::user()->documento : '' }}" placeholder="N. Documento">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="celular" value="{{ isset(Auth::user()->celular) ? Auth::user()->celular : '' }}"  placeholder="Celular">
+                                            <input type="number" class="form-control" min="1" maxlength="15" name="celular" value="{{ isset(Auth::user()->celular) ? Auth::user()->celular : '' }}"  placeholder="Celular">
                                         </div>
                                     </div>
                                 </div>
@@ -311,8 +273,9 @@ $('#raton').on('click',function(){
 
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <select id="dpto" class="form-control" required="">    
-                                                    <option value="" selected>Departamento:</option>
+                                                <select id="dpto" class="form-control opciss" required="">    
+                                                    <option value="">Departamento:</option>
+                                                    <option value="15" selected>LIMA</option>
                                                     <option value="1">AMAZONAS</option>
                                                     <option value="2">ANCASH</option>
                                                     <option value="3">APURIMAC</option>
@@ -327,7 +290,6 @@ $('#raton').on('click',function(){
                                                     <option value="12">JUNIN</option>
                                                     <option value="13">LA LIBERTAD</option>
                                                     <option value="14">LAMBAYEQUE</option>
-                                                    <option value="15">LIMA</option>
                                                     <option value="16">LORETO</option>
                                                     <option value="17">MADRE DE DIOS</option>
                                                     <option value="18">MOQUEGUA</option>
@@ -344,7 +306,7 @@ $('#raton').on('click',function(){
 
                                         <div class="col-lg-6">
                                         <div class="form-group">
-                                        <select class="form-control" id="ciudad" required="">
+                                        <select class="form-control opciss" id="ciudad" required="">
                                             <option>Ciudad:</option>
                                         </select> 
                                         </div>
@@ -352,7 +314,7 @@ $('#raton').on('click',function(){
 
                                         <div class="col-lg-6">
                                         <div class="form-group">
-                                        <select class="form-control" name="idDist" id="distrito" required="">
+                                        <select class="form-control opciss" name="idDist" id="distrito" required="">
                                             <option>Distrito</option>
                                         </select>
                                         </div>
@@ -370,16 +332,6 @@ $('#raton').on('click',function(){
                                         </div>
                                         </div>
 
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" name="email" maxlength="30" value="{{ isset(Auth::user()->email) ? Auth::user()->email : '' }}" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" name="respuestaSecreta" minlength="4" maxlength="8" placeholder="respuesta Secreta" value="{{ isset(Auth::user()->respuestaSecreta) ? Auth::user()->respuestaSecreta : '' }}">
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn theme-button  animated slideInRight">ACtualizar</button>
@@ -477,6 +429,93 @@ foto.onchange = evt => {
 });
 
 </script>
+
+
+@forelse($distritos as $distrito)
+@if(isset(Auth::user()->idDist))
+@if($distrito->idDist == Auth::user()->idDist)
+    @forelse($ciudades as $ciudad)
+    @if($distrito->idCiu == $ciudad->idCiu)
+        @forelse($departamentos as $depa)
+        @if($ciudad->idDepa == $depa->idDepa)
+<script>
+        
+        $(document).ready( function(){
+            
+
+            var departae = "{{ $depa->idDepa }}";
+            var ciuds = "{{ $ciudad->idCiu }}";
+            
+            var url_buscar = "{{ route('cambiaCiudad') }}";
+            $.ajax({
+                url: `${url_buscar}`,
+                type: "GET",
+                data: { valor: departae },
+                headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+                dataType: "HTML",
+                success: function (data) {
+                    $("#ciudad").html(data);
+                    $("#ciudad").val(ciuds).attr("selected");
+                    $("#dpto").val(departae).attr("selected");
+                },
+            });
+   
+        });
+ 
+
+</script>    
+        @endif           
+        @empty
+        @endforelse  
+    @endif           
+    @empty
+    @endforelse   
+@endif
+@endif        
+@empty
+@endforelse
+
+
+
+@forelse($distritos as $distrito)
+@if(isset(Auth::user()->idDist))
+@if($distrito->idDist == Auth::user()->idDist)
+    @forelse($ciudades as $ciudad)
+    @if($distrito->idCiu == $ciudad->idCiu)
+<script>
+        
+        $(document).ready( function(){
+
+            var distri = "{{ $distrito->idDist }}";
+            var ciuds = "{{ $ciudad->idCiu }}";
+            
+            var url_buscar = "{{ route('cambiaDistrito') }}";
+            $.ajax({
+                url: `${url_buscar}`,
+                type: "GET",
+                data: { valor: ciuds },
+                headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")},
+                dataType: "HTML",
+                success: function (data) {
+                    $("#distrito").html(data);
+                    $("#distrito").val(distri).attr("selected");
+                },
+            });
+   
+        });
+ 
+
+</script>    
+    @endif           
+    @empty
+    @endforelse   
+@endif
+@endif            
+@empty
+@endforelse
+
+
+
 
 <script>
 

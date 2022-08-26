@@ -17,7 +17,6 @@ Route::get('/filtroCategoria', [HomeController::class, 'filtroCategoria'])->name
 Route::get('/cambiaCiudad', [HomeController::class, 'ciudad'])->name('cambiaCiudad');
 Route::get('/cambiaDistrito', [HomeController::class, 'distrito'])->name('cambiaDistrito');
 
-Route::view('/login', 'auth.login')->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('post-login');
 
 Route::view('/register', 'auth.register')->name('register');

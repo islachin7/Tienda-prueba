@@ -120,7 +120,7 @@
                                 <div class="col-lg-2 col-6" style="padding:2px;">
 						<div class="card productblock product-list-wrap product-list" >
 							<div class="Content">
-								<a href="{{ route('producto.show', $producto['nombre']) }}">
+								<a href="{{ route('producto.show', $producto['id_producto']) }}">
 								<img class="img-fluid" src="{{ url('/images/productos/' . $producto['imagen']) }}" alt="">		
 								</a>
                                 @if($producto['oferta']==1)
@@ -137,7 +137,7 @@
                                         @guest
                                         <a class="btn btn-success btn-sm mb-2" href="#" data-toggle="modal" data-target="#login" >Comprar</a>
                                         @else
-                                        <a class="btn btn-success btn-sm mb-2" href="{{ route('producto.show', $producto['nombre']) }}">Comprar</a>
+                                        <a class="btn btn-success btn-sm mb-2" href="{{ route('producto.show', $producto['id_producto']) }}">Comprar</a>
                                         @endguest
                                         </div>
                                 </div>

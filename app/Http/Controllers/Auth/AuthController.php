@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Models\User;
+use App\Models\Distrito;
 use App\Models\OrdenFeedback;
 use Illuminate\Http\Request;
 use Session;
@@ -33,11 +35,11 @@ class AuthController extends Controller
         Auth::login($usuario);
 
         if($usuario->role_id == 1){
-            return redirect('/dashboard')->with('message', 'Logeo exitoso');
+            return redirect('/dashboard');
         }elseif($usuario->role_id == 2){
-            return redirect('/proveedor')->with('message', 'Logeo exitoso');
+            return redirect('/proveedor');
         }else{
-            return redirect('/')->with('message', 'Logeo exitoso');
+            return redirect('/');
         }
 
         
@@ -68,7 +70,7 @@ class AuthController extends Controller
     }
 
 
-    public function update(Request $request)
+    public function update(UpdateRequest $request)
     {
 
             $datosUsuario = request()->except(['_token','_method']);
